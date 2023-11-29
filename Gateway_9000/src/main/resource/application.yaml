@@ -1,0 +1,25 @@
+server:
+  port: 9000
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+#      discovery:
+#        locator:
+#          enabled: true  # 自动路由，通过服务名访问http://localhost:9000/order-service/order/total
+
+      routes:
+        - id: order_route # 路由的唯一标识，路由到order
+          uri: lb://order-service   #lb:使用nacos中的本地负载均衡策略
+  #          uri: http://localhost:9001   # 不经过注册中心，直接路由
+          predicates:
+          - Path=/order-serve/**    # 通过http://localhost:9000/order-serve/order/total访问
+          filters:
+          - StripPrefix=1 # 转发之前去掉第一层路径
+    nacos:
+      server-addr: 172.26.190.235:8848
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: b8c5f4b4-a8c5-4b33-ae7b-3c3c754bf714

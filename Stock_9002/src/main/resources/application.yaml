@@ -1,0 +1,12 @@
+server:
+  port: 9002
+spring:
+  application:
+    name: stock-service
+  cloud:
+    nacos:
+      server-addr: 172.26.190.235:8848
+      discovery:
+        username: nacos
+        password: nacos
+        namespace: b8c5f4b4-a8c5-4b33-ae7b-3c3c754bf714
